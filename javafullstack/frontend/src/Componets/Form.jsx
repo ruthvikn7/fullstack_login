@@ -17,7 +17,7 @@ const Form = () => {
     };
 
     const submitData = async (e) => {
-        e.preventDefault(); // Prevent page reload
+        e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8081/api/employees', formData); 
             console.log('Data submitted successfully:', response.data);

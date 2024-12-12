@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoMdEye } from "react-icons/io";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 export function FormInput({ 
   label, 
@@ -13,6 +14,7 @@ export function FormInput({
   showToggle = false, 
   onToggle 
 }) {
+
   return (
     <div className="flex flex-col w-full">
       <label
@@ -53,6 +55,8 @@ export function LoginForm() {
   const [password, setPassword] = useState("");
   const [passwordType, setPasswordType] = useState("password");
   const [errors, setErrors] = useState({ email: "", password: "" });
+  const navigate =useNavigate();
+
 
   const validate = () => {
     let valid = true;
@@ -89,6 +93,9 @@ export function LoginForm() {
       };
       try {
         const response =await axios.post("http://localhost:8081/api/auth/login",loginData);
+        if(response.data.token){
+          navigate("/dashboard")
+        }
         console.log(response)
       } catch (error) {
         console.error("Login error:", error);
